@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario de Slang Panameño</title>
+</head>
+<body>
+    <h1>Diccionario de Slang Panameño</h1>
+    <form action="{{ url_for('add_word_route') }}" method="POST">
+        <label for="word">Palabra:</label>
+        <input type="text" name="word" id="word" required>
+        <br>
+        <label for="meaning">Significado:</label>
+        <input type="text" name="meaning" id="meaning" required>
+        <br>
+        <input type="submit" value="Agregar palabra">
+        <br>
+        <br>
+        <br>
+    </form>
+
+    <h2>Lista de palabras</h2>
+    <ul>
+        {% for word, definition in definitions.items() %}
+            <li>
+                {{ word }} - {{ definition }}
+                <form class="inline-form" action="{{ url_for('edit_word_route', word=word) }}" method="POST">
+                    <label for="{{ 'new_meaning_' ~ loop.index }}">Nuevo significado:</label>
+                    <input type="text" name="new_meaning" id="{{ 'new_meaning_' ~ loop.index }}" required>
+                    <input type="submit" value="Editar palabra">
+                </form>
+                <form class="inline-form" action="{{ url_for('remove_word_route', word=word) }}" method="POST">
+                    <input type="submit" value="Eliminar palabra">
+                </form>
+                <br>
+                <br>
+            </li>
+        {% else %}
+            <li>No hay palabras en el diccionario.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
