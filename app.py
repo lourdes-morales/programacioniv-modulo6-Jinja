@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import redis
 
-# Funciones del diccionario de slang panameño que ya tenías implementadas
 from dictionary_functions import add_word, edit_word, remove_word, get_words, get_meaning
 
 app = Flask(__name__)
